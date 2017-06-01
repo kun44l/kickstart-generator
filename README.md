@@ -30,7 +30,7 @@ sudo kill -9 26065
 
 1. Compile the code 
 ```
-$CGO_ENABLED=0 go build -a -installsuffix cgo -o kickstart_generator kickstart_generator.go
+CGO_ENABLED=0 go build -a -installsuffix cgo -o kickstart_generator kickstart_generator.go
 ```
 
 2. Create Dockerfile
