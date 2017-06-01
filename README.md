@@ -22,7 +22,7 @@ curl 'localhost:8080/ks_generate/?os=centos7&version=7.3.1611&fqdn=myhost.exampl
 
 ### Stop the running process
 ```
-sudo kill -9 26065
+ps -ef | grep kickstart_generator | grep -v grep | awk '{print $2}'| xargs sudo kill -9
 [1]+  Killed                  ./kickstart_generator
 ```
 
