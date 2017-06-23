@@ -1,6 +1,8 @@
 # kickstart-generator
 Kickstart File Generator in Go
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 ### Compile and Run - Single golang binary with kickstart template
 
 ```
