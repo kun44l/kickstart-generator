@@ -1,13 +1,16 @@
-FROM alpine:latest
+FROM golang:latest as builder 
+RUN mkdir -p /go/src/github.com/ppetko/kickstart
+ADD ./* /go/src/github.com/ppetko/kickstart
+WORKDIR /go/src/github.com/ppetko/kickstart
+RUN go get && go test ./...
+RUN go build -o main .
 
-RUN apk update && apk add curl && rm -rf /var/cache/apk/*
-
-ADD kickstart_generator /kickstart_generator
-ADD ks.tmpl /ks.tmpl
-
+FROM centos:7.5.1804
 EXPOSE 8080
+RUN mkdir -p /kickstart 
+WORKDIR /kickstart
 
-HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
-      CMD curl -f http://localhost:8080 || exit 1
+COPY --from=builder /go/src/github.com/ppetko/kickstart/main /kickstart/
+ADD ./ks.tmpl /kickstart/
+ENTRYPOINT ["/kickstart/main"]
 
-ENTRYPOINT ["/kickstart_generator"]
